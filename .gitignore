@@ -1,0 +1,10 @@
+/config/.monitrc
+/config/app.yml
+/db/*.sqlite
+.ruby-version
+/.yardoc
+/doc
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*

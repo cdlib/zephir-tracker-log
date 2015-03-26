@@ -1,0 +1,53 @@
+<html>
+<head>
+	<style>
+		body { font-family: arial, sans-serif; }
+		
+		img, h3 { float: left; }
+		
+		img { margin-bottom: 20px;}
+		
+		p, table { clear: left; }
+		
+		table { margin-bottom: 20px;}
+		
+		table, table td { border: 1pt solid #000; }
+		
+		table caption { text-align: left; font-weight: bold; color: navy; }
+		
+		.error { background-color: pink; }
+	</style>
+</head>
+<body>
+	<div>
+		<img src="./robo-kat-small.png" />
+		<h3>Update Tracker (aka Robo-Kat): Log Viewer</h3>
+	
+		<p>
+			This viewer displays all comments the update tracker has placed on JIRA tickets for the past <%= @days %> days.<br />
+			Activity with a pink background indicate error/warning messages.
+		</p>
+	
+		<% @dates.each do |date, entries| %>
+			<table>
+				<caption>Activity from: <%= date.to_s %></caption>
+				<tr><th>JIRA Ticket</th><th>CID</th><th>Items</th><th>Message</th></tr>
+				
+				<% entries.each do |entry| %>
+					<tr class="<%= entry[:ticket] == '' ? 'error' : 'update' %>">
+						<td style="width: 10%;"><%= entry[:ticket] == '' ? entry[:cid] : entry[:ticket] %></td>
+				
+						<td style="width: 5%;"><%= entry[:ticket] == '' ? '' : entry[:cid] %></td>
+				
+						<td style="width: 5%;"><%= entry[:items] %></td>
+				
+						<td style="width: 80%;"><%= entry[:message] %></td>
+				
+					</tr>
+				<% end %>
+				
+			<% end %>
+		</table>
+	</div>
+</body>
+</html>
