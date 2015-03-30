@@ -3,11 +3,14 @@ require 'redis'
 require 'yaml'
 require 'json'
 
+ENV['APP_ROOT'] ||= File.expand_path(File.dirname(__FILE__))
+
 # Sinatra Application Class (Modular Style)
 # All application code within this class
 class TrackerLog < Sinatra::Base
+  
   get '/log' do
-    config = YAML.load_file('config/app.yml')
+    config = YAML.load(File.read(File.join(ENV['APP_ROOT'],'config/app.yml'))
     redis = Redis.new(:host => config['notifier']['redis_host'], :port => config['notifier']['redis_port'])
     @days = config['log_viewer']['days_back']
   
