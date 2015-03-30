@@ -10,7 +10,7 @@ ENV['APP_ROOT'] ||= File.expand_path(File.dirname(__FILE__))
 class TrackerLog < Sinatra::Base
   
   get '/log' do
-    config = YAML.load(File.read(File.join(ENV['APP_ROOT'],'config/app.yml'))
+    config = YAML.load(File.read(File.join(ENV['APP_ROOT'],'config/app.yml')))
     redis = Redis.new(:host => config['notifier']['redis_host'], :port => config['notifier']['redis_port'])
     @days = config['log_viewer']['days_back']
   
